@@ -1,13 +1,18 @@
 def solution(cacheSize, cities):
-    cache =[''] * cacheSize
-
+    cache = []
     time = 0
     for city in cities:
-        if city.lower() in cache:
-            time += 1
+        city = city.lower()
+        if cacheSize:
+            if not city in cache:
+                if len(cache) == cacheSize:
+                    cache.pop(0)
+                cache.append(city)
+                time += 5
+            else:
+                cache.pop(cache.index(city))
+                cache.append(city)
+                time += 1
         else:
             time += 5
-            cache.append(city.lower())
-            cache.pop(0)
-
     return time
